@@ -1,0 +1,133 @@
+/* Genel Stil */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background: linear-gradient(135deg, #6e8efb, #a777e3);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  text-align: center;
+  max-width: 1200px; /* Daha geniş bir konteyner */
+  width: 100%;
+  margin: 0 auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.game-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+canvas {
+  border: 2px solid white;
+  background-color: black;
+  margin-bottom: 20px;
+  width: 500px; /* 25x25 grid için genişlik */
+  height: 500px; /* 25x25 grid için yükseklik */
+}
+
+.leaderboard-desktop {
+  width: 25%; /* Leaderboard genişliği */
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  border-radius: 10px;
+  display: none; /* Mobilde gizlenecek */
+}
+
+.leaderboard-desktop h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.leaderboard-desktop ul {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard-desktop li {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.leaderboard-mobile {
+  display: block; /* Sadece mobilde görünür */
+  margin-top: 20px;
+}
+
+.leaderboard-mobile h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.leaderboard-mobile ul {
+  list-style: none;
+  padding: 0;
+}
+
+.leaderboard-mobile li {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+.controls {
+  margin-bottom: 20px;
+}
+
+.horizontal-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+button {
+  background-color: #ff6f61;
+  color: white;
+  border: none;
+  padding: 15px 30px; /* Daha büyük butonlar */
+  font-size: 1.2rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: #ff3b2f;
+  transform: scale(1.1);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  canvas {
+    width: 400px; /* Mobilde 20x20 grid */
+    height: 400px;
+  }
+
+  .leaderboard-desktop {
+    display: none; /* Masaüstünde görünür */
+  }
+
+  .leaderboard-mobile {
+    display: block; /* Masaüstünde gizli */
+  }
+}

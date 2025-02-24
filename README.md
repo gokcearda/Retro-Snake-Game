@@ -1,2 +1,2 @@
-# Retro-Snake-Game
-Retro Snake game with react firebase integration. Have fun with the projects. There is swearing prevention system.
+# Y-lan-Oyunu
+Gerçek zamanlı veri tabanı ile yüksek skorların karşılaştırılabildiği bir yılan oyunu
