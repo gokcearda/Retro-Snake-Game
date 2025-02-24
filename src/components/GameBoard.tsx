@@ -25,7 +25,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({
         viewBox={`0 0 ${canvasSize} ${canvasSize}`}
         className="block"
       >
-        {/* Grid */}
         {Array.from({ length: gridSize }).map((_, i) => (
           <React.Fragment key={`grid-${i}`}>
             <line
@@ -47,7 +46,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({
           </React.Fragment>
         ))}
 
-        {/* Snake */}
         {snake.map((segment, index) => (
           <rect
             key={`snake-${index}`}
@@ -60,7 +58,6 @@ export const GameBoard: React.FC<GameBoardProps> = ({
           />
         ))}
 
-        {/* Food */}
         <circle
           cx={food.x * cellSize + cellSize / 2}
           cy={food.y * cellSize + cellSize / 2}
