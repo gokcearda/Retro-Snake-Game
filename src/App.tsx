@@ -14,7 +14,6 @@ type Direction = 'UP' | 'DOWN' | 'LEFT' | 'RIGHT';
 type Position = { x: number; y: number };
 
 function App() {
-  // Başlangıçta yön belirsiz olsun
   const [snake, setSnake] = useState<Position[]>([{ x: 12, y: 12 }]);
   const [food, setFood] = useState<Position>({ x: 5, y: 5 });
   const [direction, setDirection] = useState<Direction | null>(null);
@@ -43,7 +42,6 @@ function App() {
   }, [score]);
 
   useEffect(() => {
-    // Firebase'den high score'ları yükle
     const scoresRef = query(ref(db, 'leaderboard'), orderByChild('score'), limitToLast(10));
     const unsubscribe = onValue(scoresRef, (snapshot) => {
       const scores: Array<{ name: string; score: number }> = [];
@@ -66,16 +64,13 @@ function App() {
     return () => window.removeEventListener('keydown', handleKeyPress);
   }, [isPlaying, isPaused, gameOver]);
 
-  // Resume durumuna geçişi yakalamak için: isPaused false olduğunda game loop'u yeniden başlat.
   useEffect(() => {
     if (!isPaused && isPlaying && !gameOver && !gameLoopRef.current) {
-      // İlk hareketi hemen tetikleyip, ardından game loop'u başlatıyoruz.
       moveSnake();
       gameLoopRef.current = window.setInterval(moveSnake, GAME_SPEED);
     }
   }, [isPaused, isPlaying, gameOver]);
 
-  // Yem üretme: Yılanın üzerine düşmesin
   const generateFood = (): Position => {
     const newFood = {
       x: Math.floor(Math.random() * GRID_SIZE),
@@ -87,8 +82,6 @@ function App() {
     return newFood;
   };
 
-  // İlk ok tuşu ile oyuna başlama:
-  // Eğer game loop henüz başlamadıysa, ilk ok tuşu yılanın hareketini başlatır.
   const handleKeyPress = (e: KeyboardEvent) => {
     if (isPaused && e.key !== ' ') return;
     
@@ -98,7 +91,6 @@ function App() {
         else if (e.key === 'ArrowDown') setDirection('DOWN');
         else if (e.key === 'ArrowLeft') setDirection('LEFT');
         else if (e.key === 'ArrowRight') setDirection('RIGHT');
-        // İlk hareketi tetikleyip interval başlatılıyor.
         gameLoopRef.current = window.setInterval(moveSnake, GAME_SPEED);
         return;
       }
@@ -193,8 +185,8 @@ function App() {
           u: "[uU]",
           n: "[nN]",
           s: "[sS5$]",
-          4: "[4Aa@]", // 4 yerine A veya a gelebilir
-          3: "[3Ee]",  // 3 yerine E veya e gelebilir
+          4: "[4Aa@]",
+          3: "[3Ee]",  
           5: "[5Ss$]" 
         };
         return replacements[char] || char;
@@ -228,8 +220,6 @@ function App() {
     }
   };
 
-  // Oyun başlatma: Yılan ve yem ekranda gösterilir,
-  // ancak game loop ilk yön tuşu ile başlatılır.
   const startGame = () => {
     setSnake([{ x: 12, y: 12 }]);
     setFood(generateFood());
@@ -254,7 +244,6 @@ function App() {
       }
       setIsPaused(true);
     } else {
-      // Resume: isPaused durumunu önce false yapıyoruz, useEffect resume game loop'u tetikleyecek.
       setIsPaused(false);
     }
   };
@@ -274,7 +263,6 @@ function App() {
       <div className="max-w-7xl mx-auto">
         <h1 className="text-4xl font-bold text-white text-center mb-8">Snake Game</h1>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          {/* Instructions */}
           <div className="lg:col-span-3 bg-white/10 backdrop-blur-lg rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Gamepad2 className="w-6 h-6 text-white" />
@@ -282,7 +270,6 @@ function App() {
             </div>
             <Instructions />
           </div>
-          {/* Game Board ve Kontroller */}
           <div className="lg:col-span-6">
             <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6">
               <div className="flex justify-between items-center mb-4 relative z-10">
@@ -320,7 +307,6 @@ function App() {
                   </div>
                 )}
               </div>
-              {/* Mobile Kontroller */}
               <div className="lg:hidden mt-4">
                 <div className="grid grid-cols-3 gap-2 max-w-[200px] mx-auto">
                   <div></div>
@@ -361,7 +347,6 @@ function App() {
               </div>
             </div>
           </div>
-          {/* Leaderboard */}
           <div className="lg:col-span-3 bg-white/10 backdrop-blur-lg rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <Trophy className="w-6 h-6 text-white" />
